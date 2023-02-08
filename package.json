@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc --build",
     "start": "npm run build && node ./dist/server.js",
-    "dev": "nodemon --transpile-only src/server.ts"
+    "dev": "nodemon --transpile-only src/server.ts",
+    "test": "vitest --reporter verbose"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
