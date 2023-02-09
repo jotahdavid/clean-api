@@ -6,6 +6,7 @@ interface UserProps {
   id: string;
   name: string;
   email: string;
+  password: string;
   birthday: Date;
 }
 
@@ -28,6 +29,10 @@ export class User {
 
     if (!props.name) {
       throw new Error('Property name is empty');
+    }
+
+    if (!props.password || props.password.length < 4) {
+      throw new Error('Property password must have at least 4 characters');
     }
   }
 
