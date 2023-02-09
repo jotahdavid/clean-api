@@ -30,4 +30,12 @@ export class User {
       throw new Error('Property name is empty');
     }
   }
+
+  get id() {
+    return this.props.id;
+  }
+
+  get email() {
+    return this.props.email;
+  }
 }
