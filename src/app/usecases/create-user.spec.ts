@@ -6,21 +6,19 @@ import { IEncrypter } from '../ports/encrypter';
 import { UserRepositoryInMemory } from '../repositories/in-memory/user-repository-in-memory';
 import { CreateUser } from './create-user';
 
-class EncrypterMock implements IEncrypter {
-  public isValid: boolean = true;
-
+class EncrypterSpy implements IEncrypter {
   async make(): Promise<string> {
     return randomUUID();
   }
 
-  async compare(): Promise<boolean> {
-    return this.isValid;
+  compare(): Promise<boolean> {
+    throw new Error('Method not implemented.');
   }
 }
 
 const makeSut = () => {
   const userRepository = new UserRepositoryInMemory();
-  const encrypter = new EncrypterMock();
+  const encrypter = new EncrypterSpy();
 
   const sut = new CreateUser(userRepository, encrypter);
 
@@ -34,12 +32,16 @@ describe('Create User', () => {
     const birthday = new Date();
     birthday.setFullYear(new Date().getFullYear() - 10);
 
-    await expect(sut.execute({
+    const user = await sut.execute({
       name: 'valid_name',
       email: 'valid_email@mail.com',
       password: 'any_password',
       birthday,
-    })).resolves.toBeInstanceOf(User);
+    });
+
+    expect(user).toBeInstanceOf(User);
+    expect(user.password).not.toBe('any_password');
+    expect(user.id).not.to.be.empty;
     expect(userRepository.users).toHaveLength(1);
   });
 
