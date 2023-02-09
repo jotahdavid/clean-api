@@ -74,4 +74,31 @@ describe('User', () => {
       birthday,
     })).toThrow();
   });
+
+  it('Should not create a User if password is less than 4 characters', () => {
+    const birthday = new Date();
+    birthday.setFullYear(birthday.getFullYear() - 10);
+
+    expect(() => new User({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: '',
+      birthday,
+    })).toThrow();
+    expect(() => new User({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'ab',
+      birthday,
+    })).toThrow();
+    expect(() => new User({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: '123',
+      birthday,
+    })).toThrow();
+  });
 });
