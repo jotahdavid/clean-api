@@ -63,7 +63,7 @@ describe('Create User', () => {
       email: 'same@mail.com',
       password: 'any_password',
       birthday,
-    })).rejects.toThrow();
+    })).rejects.toThrow('The e-mail same@mail.com is already in use');
     expect(userRepository.users).toHaveLength(1);
   });
 });
