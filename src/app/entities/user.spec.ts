@@ -101,4 +101,17 @@ describe('User', () => {
       birthday,
     })).toThrow();
   });
+
+  it('Should not create a User if email is invalid', () => {
+    const birthday = new Date();
+    birthday.setFullYear(birthday.getFullYear() - 10);
+
+    expect(() => new User({
+      id: 'any_id',
+      name: 'any_name',
+      email: 'invalid_email',
+      password: 'any_password',
+      birthday,
+    })).toThrow('Invalid email');
+  });
 });

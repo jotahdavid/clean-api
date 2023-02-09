@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
 
 import { Optional } from '../../@types/Optional';
+import { isEmail } from '../../utils/isEmail';
 
 interface UserProps {
   id: string;
@@ -25,6 +26,10 @@ export class User {
 
     if (!props.email) {
       throw new Error('Property email is empty');
+    }
+
+    if (!isEmail(props.email)) {
+      throw new Error('Invalid email');
     }
 
     if (!props.name) {
