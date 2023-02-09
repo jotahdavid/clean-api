@@ -46,7 +46,7 @@ describe('User', () => {
       email: 'valid_email@mail.com',
       password: 'any_password',
       birthday: invalidBirthday,
-    })).toThrow();
+    })).toThrow('Invalid birthday date');
   });
 
   it('Should not create a User if email is empty', () => {
@@ -59,7 +59,7 @@ describe('User', () => {
       email: '',
       password: 'any_password',
       birthday,
-    })).toThrow();
+    })).toThrow('Property email is empty');
   });
 
   it('Should not create a User if name is empty', () => {
@@ -72,7 +72,7 @@ describe('User', () => {
       email: 'valid_email@mail.com',
       password: 'any_password',
       birthday,
-    })).toThrow();
+    })).toThrow('Property name is empty');
   });
 
   it('Should not create a User if password is less than 4 characters', () => {
@@ -85,21 +85,21 @@ describe('User', () => {
       email: 'valid_email@mail.com',
       password: '',
       birthday,
-    })).toThrow();
+    })).toThrow('Property password must have at least 4 characters');
     expect(() => new User({
       id: 'valid_id',
       name: 'valid_name',
       email: 'valid_email@mail.com',
       password: 'ab',
       birthday,
-    })).toThrow();
+    })).toThrow('Property password must have at least 4 characters');
     expect(() => new User({
       id: 'valid_id',
       name: 'valid_name',
       email: 'valid_email@mail.com',
       password: '123',
       birthday,
-    })).toThrow();
+    })).toThrow('Property password must have at least 4 characters');
   });
 
   it('Should not create a User if email is invalid', () => {
