@@ -4,6 +4,7 @@ import { IUserRepository } from '../repositories/user-repository';
 interface CreateUserInput {
   name: string;
   email: string;
+  password: string;
   birthday: Date;
 }
 
@@ -21,6 +22,7 @@ export class CreateUser {
     const user = new User({
       name: input.name,
       email: input.email,
+      password: input.password,
       birthday: input.birthday,
     });
 
