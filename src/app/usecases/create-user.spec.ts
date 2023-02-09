@@ -16,6 +16,7 @@ describe('Create User', () => {
     await expect(sut.execute({
       name: 'valid_name',
       email: 'valid_email@mail.com',
+      password: 'any_password',
       birthday,
     })).resolves.toBeInstanceOf(User);
     expect(userRepository.users).toHaveLength(1);
@@ -32,12 +33,14 @@ describe('Create User', () => {
     await sut.execute({
       name: 'valid_name_1',
       email: 'same@mail.com',
+      password: 'any_password',
       birthday,
     });
 
     await expect(sut.execute({
       name: 'valid_name_2',
       email: 'same@mail.com',
+      password: 'any_password',
       birthday,
     })).rejects.toThrow();
     expect(userRepository.users).toHaveLength(1);

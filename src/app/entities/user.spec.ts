@@ -11,6 +11,7 @@ describe('User', () => {
       id: 'valid_id',
       name: 'valid_name',
       email: 'valid_email@mail.com',
+      password: 'any_password',
       birthday,
     };
     const sut = new User(user);
@@ -26,6 +27,7 @@ describe('User', () => {
     const user = {
       name: 'valid_name',
       email: 'valid_email@mail.com',
+      password: 'any_password',
       birthday,
     };
     const sut = new User(user);
@@ -42,6 +44,7 @@ describe('User', () => {
       id: 'valid_id',
       name: 'valid_name',
       email: 'valid_email@mail.com',
+      password: 'any_password',
       birthday: invalidBirthday,
     })).toThrow();
   });
@@ -54,6 +57,7 @@ describe('User', () => {
       id: 'valid_id',
       name: 'valid_name',
       email: '',
+      password: 'any_password',
       birthday,
     })).toThrow();
   });
@@ -66,6 +70,7 @@ describe('User', () => {
       id: 'valid_id',
       name: '',
       email: 'valid_email@mail.com',
+      password: 'any_password',
       birthday,
     })).toThrow();
   });
