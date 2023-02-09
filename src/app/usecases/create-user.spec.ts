@@ -1,14 +1,35 @@
+import { randomUUID } from 'crypto';
 import { describe, expect, it } from 'vitest';
 
 import { User } from '../entities/user';
+import { IEncrypter } from '../ports/encrypter';
 import { UserRepositoryInMemory } from '../repositories/in-memory/user-repository-in-memory';
 import { CreateUser } from './create-user';
 
+class EncrypterMock implements IEncrypter {
+  public isValid: boolean = true;
+
+  async make(): Promise<string> {
+    return randomUUID();
+  }
+
+  async compare(): Promise<boolean> {
+    return this.isValid;
+  }
+}
+
+const makeSut = () => {
+  const userRepository = new UserRepositoryInMemory();
+  const encrypter = new EncrypterMock();
+
+  const sut = new CreateUser(userRepository, encrypter);
+
+  return { sut, userRepository };
+};
+
 describe('Create User', () => {
   it('Should be able to create a user', async () => {
-    const userRepository = new UserRepositoryInMemory();
-
-    const sut = new CreateUser(userRepository);
+    const { sut, userRepository } = makeSut();
 
     const birthday = new Date();
     birthday.setFullYear(new Date().getFullYear() - 10);
@@ -23,9 +44,7 @@ describe('Create User', () => {
   });
 
   it('Should not be able to create a user if the email is already in use', async () => {
-    const userRepository = new UserRepositoryInMemory();
-
-    const sut = new CreateUser(userRepository);
+    const { sut, userRepository } = makeSut();
 
     const birthday = new Date();
     birthday.setFullYear(new Date().getFullYear() - 10);
