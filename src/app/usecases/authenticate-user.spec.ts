@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { describe, expect, it } from 'vitest';
 
 import { User } from '../entities/user';
