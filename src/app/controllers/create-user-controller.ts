@@ -32,10 +32,16 @@ export class CreateUserController implements IController {
 
     const payload = validation.data;
     const createdUser = await this.createUser.execute(payload);
+    const userResponse = {
+      id: createdUser.id,
+      name: createdUser.name,
+      email: createdUser.email,
+      birthday: createdUser.birthday,
+    };
 
     return {
       statusCode: 201,
-      body: createdUser,
+      body: userResponse,
     };
   }
 }
