@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { IController } from '../ports/controller';
 import { HttpRequest, HttpResponse } from '../shared/http';
 import { CreateUser } from '../usecases/create-user';
+import { formatZodErrorMessage } from '../../utils/formatZodErrorMessage';
 
 const userSchema = z.object({
   email: z.string().min(1).email(),
@@ -26,7 +27,7 @@ export class CreateUserController implements IController {
     if (!validation.success) {
       return {
         statusCode: 422,
-        body: {},
+        body: { error: formatZodErrorMessage(validation.error) },
       };
     }
 
