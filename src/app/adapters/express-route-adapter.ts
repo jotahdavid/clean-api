@@ -10,7 +10,7 @@ export class ExpressRouteAdapter {
       };
 
       try {
-        const httpResponse = await requestHandler(httpRequest);
+        const httpResponse = await requestHandler.handle(httpRequest);
         return res.status(httpResponse.statusCode).json(httpResponse.body);
       } catch (err) {
         // eslint-disable-next-line no-console

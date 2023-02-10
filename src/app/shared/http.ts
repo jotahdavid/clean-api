@@ -7,4 +7,6 @@ export interface HttpResponse {
   body: any;
 }
 
-export type HttpRequestHandler = (httpRequest: HttpRequest) => HttpResponse | Promise<HttpResponse>;
+export interface HttpRequestHandler {
+  handle: (httpRequest: HttpRequest) => HttpResponse | Promise<HttpResponse>;
+}
