@@ -30,7 +30,7 @@ const makeSut = () => {
 describe('Create User Controller', () => {
   it('Should return 422 if name property is missing', async () => {
     const { sut } = makeSut();
-    const { statusCode } = await sut.handle({
+    const { statusCode, body } = await sut.handle({
       body: {
         email: 'any_email@mail.com',
         password: 'any_password',
@@ -38,11 +38,13 @@ describe('Create User Controller', () => {
       },
     });
     expect(statusCode).toBe(422);
+    expect(body).toHaveProperty('error');
+    expect(body.error).toBe('Required at "name"');
   });
 
   it('Should return 422 if email property is missing', async () => {
     const { sut } = makeSut();
-    const { statusCode } = await sut.handle({
+    const { statusCode, body } = await sut.handle({
       body: {
         name: 'any_name',
         password: 'any_password',
@@ -50,11 +52,13 @@ describe('Create User Controller', () => {
       },
     });
     expect(statusCode).toBe(422);
+    expect(body).toHaveProperty('error');
+    expect(body.error).toBe('Required at "email"');
   });
 
   it('Should return 422 if password property is missing', async () => {
     const { sut } = makeSut();
-    const { statusCode } = await sut.handle({
+    const { statusCode, body } = await sut.handle({
       body: {
         name: 'any_name',
         email: 'any_email@mail.com',
@@ -62,11 +66,13 @@ describe('Create User Controller', () => {
       },
     });
     expect(statusCode).toBe(422);
+    expect(body).toHaveProperty('error');
+    expect(body.error).toBe('Required at "password"');
   });
 
   it('Should return 422 if birthday property is missing', async () => {
     const { sut } = makeSut();
-    const { statusCode } = await sut.handle({
+    const { statusCode, body } = await sut.handle({
       body: {
         name: 'any_name',
         email: 'any_email@mail.com',
@@ -74,6 +80,8 @@ describe('Create User Controller', () => {
       },
     });
     expect(statusCode).toBe(422);
+    expect(body).toHaveProperty('error');
+    expect(body.error).toBe('Required at "birthday"');
   });
 
   it('Should return 201 with all required properties', async () => {
