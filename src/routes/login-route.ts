@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
 import { ExpressRouteAdapter } from '../app/adapters/express-route-adapter';
-import { LoginRouterComposer } from '../app/composers/login-router-compose';
+import { makeLoginController } from '../app/factories/login-controller';
 
 const loginRoute = Router();
 
-loginRoute.post('/login', ExpressRouteAdapter.adapt(LoginRouterComposer.compose()));
+loginRoute.post('/login', ExpressRouteAdapter.adapt(makeLoginController()));
 
 export { loginRoute };
