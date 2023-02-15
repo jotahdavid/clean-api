@@ -18,3 +18,5 @@ export class UserRepositoryInMemory implements IUserRepository {
     return userFound ?? null;
   }
 }
+
+export const userRepository = new UserRepositoryInMemory();
